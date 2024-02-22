@@ -1,0 +1,61 @@
+/* Para escritorio */
+@media (min-width: 768px) {
+    
+      .titulos-parada,
+      .parada-buses {
+        text-align: center;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        font-size: larger;
+      }
+    
+      .parada-buses {
+        font-family: "Times New Roman", Times, serif;
+        padding: 20px;
+        font-style: italic;
+        font-size: 40px;
+        caption-side: bottom;
+        color: #000000;
+        letter-spacing: 1px;
+        margin-left: auto;
+        margin-right: auto;
+        border-collapse: separate;
+        border-spacing: 15px;
+      }
+    
+      .parada-buses thead th{
+        border-bottom: solid 2px black;
+      }
+
+      .reloj{
+        font-size: 80px;
+      }
+}
+
+/* Para teléfono móvil */
+@media (max-width: 767px) {
+  
+  .titulos-parada,
+  .parada-buses {
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  }
+
+  .parada-buses {
+    font-family: "Times New Roman", Times, serif;
+    padding: 20px;
+    font-style: italic;
+    caption-side: bottom;
+    color: #000000;
+    letter-spacing: 1px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .parada-buses thead th{
+    border-bottom: solid 2px black;
+  }
+
+  .reloj{
+    font-size: 50px;
+  }
+}
