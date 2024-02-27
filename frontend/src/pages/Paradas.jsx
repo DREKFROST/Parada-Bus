@@ -34,7 +34,7 @@ const Paradas = ({ parada, bus, cooperativa, tiempo }) => {
           />
         </h1>
         
-        <h2>Bienvenidos a nuestro sistema de transporte</h2>
+        <h3>Bienvenidos a nuestro sistema de transporte</h3>
         <h1>Parada {parada}</h1>
       </div>
       <table className="parada-buses">

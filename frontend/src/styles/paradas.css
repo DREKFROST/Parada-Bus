@@ -1,34 +1,70 @@
 /* Para escritorio */
 @media (min-width: 768px) {
-    
-      .titulos-parada,
-      .parada-buses {
-        text-align: center;
-        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-        font-size: larger;
-      }
-    
-      .parada-buses {
-        font-family: "Times New Roman", Times, serif;
-        padding: 20px;
-        font-style: italic;
-        font-size: 40px;
-        caption-side: bottom;
-        color: #000000;
-        letter-spacing: 1px;
-        margin-left: auto;
-        margin-right: auto;
-        border-collapse: separate;
-        border-spacing: 15px;
-      }
-    
-      .parada-buses thead th{
-        border-bottom: solid 2px black;
-      }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e6e6e6; /* Cambiado el color de fondo */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
+}
 
-      .reloj{
-        font-size: 80px;
-      }
+.titulos-parada {
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    margin-bottom: 20px;
+    color: #4d4d4d; /* Cambiado el color del texto */
+    font-size: 160%; /* Aumentado el tamaño de fuente */
+    border-bottom: 2px solid #4d4d4d; /* Línea inferior */
+    padding-bottom: 10px; /* Espaciado inferior */
+    width: 100%; /* Ancho completo */
+    box-sizing: border-box; /* Incluir bordes en el tamaño total */
+}
+
+.parada-buses {
+    font-family: "Roboto", Arial, Helvetica, sans-serif; /* Cambiado el tipo de letra */
+    font-style: italic;
+    font-size: 24px; /* Aumentado el tamaño de fuente */
+    color: #333333; /* Cambiado el color de texto */
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+    transition: all 0.3s ease; /* Transición suave para todos los cambios */
+}
+
+.parada-buses th,
+.parada-buses td {
+    padding: 15px; /* Aumentado el espaciado interno */
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.parada-buses thead {
+    background-color: #cccccc; /* Cambiado el color de fondo del encabezado */
+}
+
+.parada-buses tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Estilos para la columna "Cooperativa" */
+.parada-buses td:nth-child(2) {
+    background-color: #ffffcc; /* Cambiado el color de fondo */
+}
+
+/* Estilos para la columna "Tiempo Estimado de llegada" */
+.parada-buses td:nth-child(3) {
+    background-color: #c2f0c2; /* Cambiado el color de fondo */
+}
+
+/* Estilos para la columna "Aprox. (min)" */
+.parada-buses td:nth-child(4) {
+    background-color: #ffb3b3; /* Cambiado el color de fondo */
+}
+
+
+
 }
 
 /* Para teléfono móvil */
