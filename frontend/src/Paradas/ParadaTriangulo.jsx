@@ -1,7 +1,7 @@
 import React from "react";
 import Paradas from "../pages/Paradas";
 
-const ParadaSanLuis = ({ parada, bus, cooperativa, tiempo }) => {
+const ParadaTriangulo = ({ parada, bus, cooperativa, tiempo }) => {
   return (
     <Paradas
       parada={parada}
@@ -12,4 +12,4 @@ const ParadaSanLuis = ({ parada, bus, cooperativa, tiempo }) => {
   );
 };
 
-export default ParadaSanLuis;
+export default ParadaTriangulo;

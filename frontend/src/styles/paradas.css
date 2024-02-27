@@ -1,9 +1,9 @@
 /* Para escritorio */
 @media (min-width: 768px) {
-  body {
+  .content-paradas {
+    height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     background-color: #e6e6e6; /* Cambiado el color de fondo */
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,7 +18,7 @@
     font-size: 160%; /* Aumentado el tamaño de fuente */
     border-bottom: 2px solid #4d4d4d; /* Línea inferior */
     padding-bottom: 10px; /* Espaciado inferior */
-    width: 100%; /* Ancho completo */
+    width: 80%; /* Ancho completo */
     box-sizing: border-box; /* Incluir bordes en el tamaño total */
 }
 
@@ -29,7 +29,7 @@
     color: #333333; /* Cambiado el color de texto */
     margin-top: 20px;
     border-collapse: collapse;
-    width: 100%;
+    width: 80%;
     transition: all 0.3s ease; /* Transición suave para todos los cambios */
 }
 
