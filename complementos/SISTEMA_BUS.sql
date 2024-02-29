@@ -45,7 +45,7 @@ create table CHOFER
    ID_COOPERATIVA       int not null,
    NOMBRE_CHOFER        varchar(25) not null,
    APELLIDO_CHOFER      varchar(25) not null,
-   CEDULA_CHOFER        varchar(10),
+   CEDULA_CHOFER        varchar(10) not null,
    TELEFONO_CHOFER      varchar(25) not null,
    CORREO_CHOFER        varchar(25) not null,
    ESTADO_CHOFER        varchar(25) not null,
