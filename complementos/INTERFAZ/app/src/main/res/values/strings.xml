@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Ruta</string>
+    <string name="action_settings">Configuracion</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Iniciar Ruta</string>
+    <string name="second_fragment_label">Ruta</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Terminar</string>
+    <string name="bienvenida">
+        Bienvenido, desea empezar la Ruta.
+    </string>
+    <string name="analizando">Analizando la ubicacion</string>
+    <string name="espera">Espere mientras se carga...</string>
+</resources>
+
