@@ -65,11 +65,35 @@
 
 
 
+.btn-group {
+  grid-template-columns: auto;
+  justify-content: center;
+  column-gap: 50px;
+  position: relative;
+  top: 40%;
+  display: none;
+}
+.boton {
+  position: static;
+  margin: 0 10px 10px 0;
+  padding: 10px 20px;
+  background-color: #1532d3d3;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-size: 10px;
+}
+
+
 }
 
 /* Para teléfono móvil */
 @media (max-width: 767px) {
-  
+  body {
+    background-color: #B7C9F2;
+  }
   .titulos-parada,
   .parada-buses {
     text-align: center;
@@ -93,5 +117,57 @@
 
   .reloj{
     font-size: 50px;
+  }
+
+  .parada-buses th,
+.parada-buses td {
+    padding: 15px; /* Aumentado el espaciado interno */
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.parada-buses thead {
+    background-color: #cccccc; /* Cambiado el color de fondo del encabezado */
+}
+
+.parada-buses tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Estilos para la columna "Cooperativa" */
+.parada-buses td:nth-child(2) {
+    background-color: #ffffcc; /* Cambiado el color de fondo */
+}
+
+/* Estilos para la columna "Tiempo Estimado de llegada" */
+.parada-buses td:nth-child(3) {
+    background-color: #c2f0c2; /* Cambiado el color de fondo */
+}
+
+/* Estilos para la columna "Aprox. (min)" */
+.parada-buses td:nth-child(4) {
+    background-color: #ffb3b3; /* Cambiado el color de fondo */
+}
+
+
+  .btn-group {
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+    column-gap: 50px;
+    position: relative;
+    top: 40%;
+  }
+  .boton {
+    position: static;
+    margin: 0 10px 10px 0;
+    padding: 10px 20px;
+    background-color: #1532d3d3;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+      "Lucida Sans", Arial, sans-serif;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 10px;
   }
 }

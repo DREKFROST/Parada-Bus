@@ -55,6 +55,21 @@ const Paradas = ({ parada, bus, cooperativa, tiempo }) => {
           </tr>
         </tbody>
       </table>
+      <div className="btn-group">
+      <button
+          className="boton"
+          onClick={() => (window.location.href = "/")}
+        >
+          <h1>Regresar</h1>
+        </button>
+        </div>
+        <div>
+          <h3>Made in:</h3>
+          <h4>Daniel Llumigusin</h4>
+          <h4>Daniela Pilataxi</h4>
+          <h4>Dominique Salazar</h4>
+          <h4>William León</h4>
+        </div>
     </div>
   );
 };
