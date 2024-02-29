@@ -1,0 +1,22 @@
+alter session set "_ORACLE_SCRIPT"=true;
+
+CREATE USER cooperativa IDENTIFIED BY cooperativa;
+
+GRANT ALL PRIVILEGES TO cooperativa;
+
+COMMIT;
+
+INSERT INTO Cooperativa (id_cooperativa, nombre_cooperativa, telefono_cooperativa, direccion_cooperativa,usuario,password)
+VALUES (1, 'Cooperativa San Miguel', '5551234567', 'Av. Principal #123','Daniel','123');
+
+INSERT INTO Chofer (id_chofer, id_cooperativa, nombre_chofer, apellido_chofer, cedula_chofer, telefono_chofer, correo_chofer, estado_chofer)
+VALUES (1, 1, 'Juan', 'Pérez', '1750767178' ,'5559876543', 'juan@example.com', 'Activo');
+
+INSERT INTO Bus (id_bus, id_chofer, color_bus, placa_bus, numero_bus, capacidad, ruta_bus, estado_bus)
+VALUES (1, 1, 'Rojo', 'ABC1234', 1, 50, 'Ruta 1', 'Disponible');
+
+INSERT INTO Parada (id_parada, nombre_parada, estado_parada, serie_pantalla)
+VALUES (1, 'Parada 1', 'Activa', 'SerieA001');
+
+INSERT INTO Dispositivo (id_dispositivo, marca_dispositivo, fecha_adquisicion, estado_dispositivo)
+VALUES (1, 'MarcaX', '2024-02-23', 'Activo');

@@ -8,7 +8,7 @@ const port = 5000;
 const dbConfig = {
   user: 'cooperativa',
   password: 'cooperativa',
-  connectString: 'localhost:1521/ORCL'
+  connectString: 'localhost:1521/orcl'
 };
 
 // Conexión a Oracle
