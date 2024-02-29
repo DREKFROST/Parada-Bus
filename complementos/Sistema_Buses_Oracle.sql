@@ -55,12 +55,43 @@ drop index ALMACENA_FK;
 
 drop table UBICACION cascade constraints;
 
+DROP SEQUENCE SEQ_BUS;
+DROP SEQUENCE SEQ_CHOFER;
+DROP SEQUENCE SEQ_DISPOSITIVO;
+DROP SEQUENCE SEQ_PARADA;
+DROP SEQUENCE SEQ_COOPERATIVA;
+DROP SEQUENCE SEQ_UBICACION;
+
+CREATE SEQUENCE SEQ_BUS
+   START WITH 1
+   INCREMENT BY 1;
+
+CREATE SEQUENCE SEQ_CHOFER
+   START WITH 1
+   INCREMENT BY 1;
+
+CREATE SEQUENCE SEQ_DISPOSITIVO
+   START WITH 1
+   INCREMENT BY 1;
+
+CREATE SEQUENCE SEQ_PARADA
+   START WITH 1
+   INCREMENT BY 1;
+
+CREATE SEQUENCE SEQ_COOPERATIVA
+   START WITH 1
+   INCREMENT BY 1;
+
+CREATE SEQUENCE SEQ_UBICACION
+   START WITH 1
+   INCREMENT BY 1;
+
 /*==============================================================*/
 /* Table: BUS                                                   */
 /*==============================================================*/
 create table BUS 
 (
-   ID_BUS               INTEGER              not null AUTO_INCREMENT,
+   ID_BUS               INTEGER              DEFAULT SEQ_BUS.nextval,
    ID_CHOFER            INTEGER              not null,
    COLOR_BUS            VARCHAR2(25)         not null,
    PLACA_BUS            VARCHAR2(7)          not null,
@@ -83,7 +114,7 @@ create index MANEJA_FK on BUS (
 /*==============================================================*/
 create table CHOFER 
 (
-   ID_CHOFER            INTEGER              not null AUTO_INCREMENT,
+   ID_CHOFER            INTEGER              DEFAULT SEQ_CHOFER.nextval,
    ID_COOPERATIVA       INTEGER              not null,
    NOMBRE_CHOFER        VARCHAR2(25)         not null,
    APELLIDO_CHOFER      VARCHAR2(25)         not null,
@@ -106,7 +137,7 @@ create index CONTRATA_FK on CHOFER (
 /*==============================================================*/
 create table COOPERATIVA 
 (
-   ID_COOPERATIVA       INTEGER              not null AUTO_INCREMENT,
+   ID_COOPERATIVA       INTEGER              DEFAULT SEQ_COOPERATIVA.nextval,
    NOMBRE_COOPERATIVA   VARCHAR2(25)         not null,
    TELEFONO_COOPERATIVA VARCHAR2(10)         not null,
    DIRECCION_COOPERATIVA VARCHAR2(25)         not null,
@@ -120,7 +151,7 @@ create table COOPERATIVA
 /*==============================================================*/
 create table DISPOSITIVO 
 (
-   ID_DISPOSITIVO       INTEGER              not null AUTO_INCREMENT,
+   ID_DISPOSITIVO       INTEGER              DEFAULT SEQ_DISPOSITIVO.nextval,
    MARCA_DISPOSITIVO    VARCHAR2(25)         not null,
    FECHA_ADQUISICION    DATE                 not null,
    ESTADO_DISPOSITIVO   VARCHAR2(25)         not null,
@@ -132,7 +163,7 @@ create table DISPOSITIVO
 /*==============================================================*/
 create table PARADA 
 (
-   ID_PARADA            INTEGER              not null AUTO_INCREMENT,
+   ID_PARADA            INTEGER              DEFAULT SEQ_PARADA.nextval,
    NOMBRE_PARADA        VARCHAR2(25)         not null,
    ESTADO_PARADA        VARCHAR2(25)         not null,
    SERIE_PANTALLA       VARCHAR2(25)         not null,
@@ -197,7 +228,7 @@ create index REGISTRO_UBICACION_FK on REGISTRO_UBICACION (
 /*==============================================================*/
 create table UBICACION 
 (
-   ID_UBICACION         INTEGER              not null AUTO_INCREMENT,
+   ID_UBICACION         INTEGER             DEFAULT SEQ_UBICACION.nextval,
    ID_DISPOSITIVO       INTEGER              not null,
    LATITUD              VARCHAR2(9),
    LONGITUD             VARCHAR2(9),
