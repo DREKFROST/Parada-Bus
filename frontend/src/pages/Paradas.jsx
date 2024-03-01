@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import Clock from "react-live-clock";
 import "../styles/paradas.css";
+import imagen_back from "../img/btn-back.png";
 const Paradas = ({ parada, bus, cooperativa, tiempo }) => {
   const [diferenciaMinutos, setDiferenciaMinutos] = useState(null);
 
@@ -18,6 +19,14 @@ const Paradas = ({ parada, bus, cooperativa, tiempo }) => {
 
   return (
     <div className="content-paradas">
+      <div className="btn-parada">
+        <button
+          className="boton-parada"
+          onClick={() => (window.location.href = "/")}
+        >
+          <img src={imagen_back} alt="" />
+        </button>
+      </div>
       <div className="titulos-parada">
         <h1>
           <Clock
@@ -33,7 +42,7 @@ const Paradas = ({ parada, bus, cooperativa, tiempo }) => {
             timezone={"America/Guayaquil"}
           />
         </h1>
-        
+
         <h3>Bienvenidos a nuestro sistema de transporte</h3>
         <h1>Parada {parada}</h1>
       </div>
@@ -42,7 +51,7 @@ const Paradas = ({ parada, bus, cooperativa, tiempo }) => {
           <tr>
             <th>Bus</th>
             <th>Cooperativa</th>
-            <th>Tiempo Estimado de llegada</th>
+            <th>Hora llegada</th>
             <th>Aprox.{"(min)"}</th>
           </tr>
         </thead>
@@ -55,21 +64,14 @@ const Paradas = ({ parada, bus, cooperativa, tiempo }) => {
           </tr>
         </tbody>
       </table>
-      <div className="btn-group">
-      <button
-          className="boton"
-          onClick={() => (window.location.href = "/")}
-        >
-          <h1>Regresar</h1>
-        </button>
-        </div>
-        <div>
-          <h3>Made in:</h3>
-          <h4>Daniel Llumigusin</h4>
-          <h4>Daniela Pilataxi</h4>
-          <h4>Dominique Salazar</h4>
-          <h4>William León</h4>
-        </div>
+
+      <div>
+        <footer className="footer-nombres">
+          <h4>
+            Daniel Llumigusin, Daniela Pilataxi, Dominique Salazar, William León
+          </h4>
+        </footer>
+      </div>
     </div>
   );
 };
