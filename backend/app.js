@@ -1,36 +1,66 @@
-const express = require('express');
-const oracledb = require('oracledb');
+const express = require("express");
+const mysql = require("mysql");
+const cors = require("cors");
 
 const app = express();
 const port = 5000;
 
-// Configuración de la conexión a Oracle
+// Configuración de la conexión a MySQL
 const dbConfig = {
-  user: 'cooperativa',
-  password: 'cooperativa',
-  connectString: 'localhost:1521/orcl'
+  host: "localhost",
+  user: "root",
+  password: "Llumigusin98*",
+  database: "cooperativa",
 };
 
-// Conexión a Oracle
-oracledb.getConnection(dbConfig, function (err, connection) {
+// Conexión a MySQL
+const connection = mysql.createConnection(dbConfig);
+
+connection.connect(function (err) {
   if (err) {
-    console.error(err.message);
+    console.error("Error al conectar a MySQL: " + err.stack);
     return;
   }
-  console.log('Conectado a Oracle');
+  console.log("Conectado a MySQL con el ID " + connection.threadId);
+});
 
-  // Ruta de ejemplo para obtener datos de Oracle
-  app.get('/cooperativa', (req, res) => {
-    // Ejemplo de consulta a la base de datos
-    connection.execute('SELECT * FROM cooperativa', [], (err, result) => {
+// Usar el middleware cors
+app.use(cors());
+
+app.get("/nombre_paradas", function (req, res) {
+  connection.query(
+    "SELECT NOMBRE_PARADA FROM parada",
+    function (err, result, fields) {
       if (err) {
-        console.error(err.message);
-        res.status(500).send('Error al obtener datos de Oracle');
+        console.error("Error al obtener datos de MySQL: " + err.stack);
+        res.status(500).send("Error al obtener datos de MySQL");
         return;
       }
-      res.json(result.rows);
-    });
-  });
+      res.json(result);
+    }
+  );
+});
+
+app.get("/paradas", (req, res) => {
+  // Ejemplo de consulta a la base de datos
+  const parada = req.query.nombre_parada;
+  connection.query(
+    `SELECT NOMBRE_COOPERATIVA, NOMBRE_PARADA, NUMERO_BUS 
+    FROM cooperativa 
+    NATURAL JOIN chofer 
+    NATURAL JOIN bus 
+    NATURAL JOIN parada 
+    WHERE NOMBRE_PARADA = '${parada}';`,
+    function (err, result, fields) {
+      if (err) {
+        console.error("Error al obtener datos de MySQL: " + err.stack);
+        res.status(500).send("Error al obtener datos de MySQL");
+        return;
+      }
+      res.json(result);
+      console.log(result);
+    }
+  );
 });
 
 // Iniciar el servidor

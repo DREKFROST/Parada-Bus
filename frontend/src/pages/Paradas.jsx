@@ -3,8 +3,28 @@ import moment from "moment";
 import Clock from "react-live-clock";
 import "../styles/paradas.css";
 import imagen_back from "../img/btn-back.png";
-const Paradas = ({ parada, bus, cooperativa, tiempo }) => {
+import axios from "axios";
+const Paradas = ({ parada }) => {
   const [diferenciaMinutos, setDiferenciaMinutos] = useState(null);
+  const [datos, setDatos] = useState([]);
+  var tiempo = "20:30:45";
+  useEffect(() => {
+    console.log(parada);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/paradas/", {
+          params: {
+            nombre_parada: parada,
+          },
+        });
+        setDatos(response.data);
+        
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -16,7 +36,7 @@ const Paradas = ({ parada, bus, cooperativa, tiempo }) => {
 
     return () => clearInterval(interval);
   }, [tiempo]);
-
+  console.log(datos);
   return (
     <div className="content-paradas">
       <div className="btn-parada">
@@ -56,12 +76,16 @@ const Paradas = ({ parada, bus, cooperativa, tiempo }) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>{bus}</td>
-            <td>{cooperativa}</td>
-            <td>{tiempo}</td>
-            <td>{diferenciaMinutos > 0 ? diferenciaMinutos : "Ya se paso"}</td>
-          </tr>
+          {datos.map((data, index) => (
+            <tr>
+              <td>{data.NUMERO_BUS}</td>
+              <td>{data.NOMBRE_COOPERATIVA}</td>
+              <td>{tiempo}</td>
+              <td>
+                {diferenciaMinutos > 0 ? diferenciaMinutos : "Ya se paso"}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
 

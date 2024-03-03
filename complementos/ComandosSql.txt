@@ -6,8 +6,8 @@ GRANT ALL PRIVILEGES TO cooperativa;
 
 COMMIT;
 
-INSERT INTO Cooperativa (id_cooperativa, nombre_cooperativa, telefono_cooperativa, direccion_cooperativa,usuario,password)
-VALUES (1, 'Cooperativa San Miguel', '5551234567', 'Av. Principal #123','Daniel','123');
+INSERT INTO Cooperativa (nombre_cooperativa, telefono_cooperativa, direccion_cooperativa,usuario,password)
+VALUES ('Cooperativa San Miguel', '5551234567', 'Av. Principal #123','Daniel','123');
 
 INSERT INTO Chofer (id_chofer, id_cooperativa, nombre_chofer, apellido_chofer, cedula_chofer, telefono_chofer, correo_chofer, estado_chofer)
 VALUES (1, 1, 'Juan', 'Pérez', '1750767178' ,'5559876543', 'juan@example.com', 'Activo');
@@ -20,3 +20,44 @@ VALUES (1, 'Parada 1', 'Activa', 'SerieA001');
 
 INSERT INTO Dispositivo (id_dispositivo, marca_dispositivo, fecha_adquisicion, estado_dispositivo)
 VALUES (1, 'MarcaX', '2024-02-23', 'Activo');
+
+
+
+ESPE =
+	(DESCRIPTION = 
+		(ADDRESS_LIST = (ADDRESS = (COMMUNITY=TCP) (PROTOCOL = TCP) (HOST = DESKTOP-I6IGDOB) (PORT=1521)))
+		(CONNECT_DATA = (SID = XE))
+	)
+
+
+--------------------------------------------------
+/*HOST = IP O el nombre del Nodo principal*/ Esto es para los nodos Secundarios
+
+CREATE DATABASE LINK DB
+CONNECT TO cooperativa
+IDENTIFIED BY cooperativa
+USING '(DESCRPRIPTION = 
+	(ADDRESS_LIST=
+		(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.10)(PORT = 1521))
+	)
+	(CONNECT_DATA = 
+		(SERVER = DEDICATED)
+		(SERVICE_NAME = orcl)
+	)
+ )'
+
+
+CREATE MATERIALIZED VIEW cooperativa_replicada
+REFRESH FAST
+START WITH sysdate + 5(24*60)
+NEXT sysdate + 5/(24*60)
+AS
+SELECT * FROM EPS@DB
+
+----------------------------------------------------
+/*Esto es para el nodo principal*/
+
+CREATE MATERIALIZED VIEW LOG
+ON cooperativa
+WITH PRIMARY KEY
+INCLUDDING NEW VALUES;

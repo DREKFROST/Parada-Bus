@@ -1,18 +1,38 @@
 import "./App.css";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import ParadaEspe from "./Paradas/ParadaEspe";
-import ParadaSanLuis from "./Paradas/ParadaSanLuis";
-import ParadaTriangulo from "./Paradas/ParadaTriangulo";
+import Parada from "./Paradas/ModelParada";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 function App() {
+  const [paradas, setParadas] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/nombre_paradas");
+        setParadas(response.data);
+        console.log(paradas);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/espe" element={<ParadaEspe parada={"ESPE"} cooperativa={"Amaguaña"} bus={25} tiempo={"17:20:12"}/>} />
-          <Route path="/sanluis" element={<ParadaSanLuis parada={"San Luis"} cooperativa={"Amaguaña"} bus={25} tiempo={"17:25:12"}/>} />
-          <Route path="/triangulo" element={<ParadaTriangulo parada={"Triangulo"} cooperativa={"Amaguaña"} bus={25} tiempo={"17:35:12"}/>} />
+          {paradas.map((parada, index) => (
+            <Route
+              key={index}
+              path={"/" + parada.NOMBRE_PARADA}
+              element={<Parada nombre_parada={parada.NOMBRE_PARADA}/>}
+            />
+          ))}
         </Routes>
       </BrowserRouter>
     </div>
