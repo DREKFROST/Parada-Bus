@@ -63,6 +63,25 @@ app.get("/paradas", (req, res) => {
   );
 });
 
+app.get("/registro_ubicacion", (req, res) => {
+  const id_bus = req.query.id_bus;
+  const id_parada = req.query.id_parada;
+  connection.query(
+    "SELECT FECHA_UBICACION FROM REGISTRO_UBICACION WHERE id_bus = " +
+      id_bus +
+      " AND id_parada = " +
+      id_parada,
+    (err, result) => {
+      if (err) {
+        console.log("Tiempo no encontrado" + err);
+        res.status(500).send("Error interno");
+      } else {
+        res.json(result);
+      }
+    }
+  );
+});
+
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor backend corriendo en http://localhost:${port}`);

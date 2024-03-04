@@ -19,7 +19,7 @@ function App() {
       }
     };
     fetchData();
-  }, []);
+  }, []);  
 
   return (
     <div className="App">
@@ -29,7 +29,7 @@ function App() {
           {paradas.map((parada, index) => (
             <Route
               key={index}
-              path={"/" + parada.NOMBRE_PARADA}
+              path={"/" + parada.NOMBRE_PARADA.replace(/\s/g, '')}
               element={<Parada nombre_parada={parada.NOMBRE_PARADA}/>}
             />
           ))}
