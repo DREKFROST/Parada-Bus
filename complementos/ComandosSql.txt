@@ -61,3 +61,19 @@ CREATE MATERIALIZED VIEW LOG
 ON cooperativa
 WITH PRIMARY KEY
 INCLUDDING NEW VALUES;
+
+----------------------------------------------------
+
+CREATE USER ''@'%' IDENTIFIED BY 'contraseña';
+GRANT REPLICATION SLAVE ON *.* TO 'usuario_replica'@'%';
+FLUSH PRIVILEGES;
+
+mysql -u cooperativa -p -h DESKTOP-I6IGDOB:3306
+
+
+CHANGE MASTER TO
+MASTER_HOST = 'DESKTOP-I6IGDOB',
+MASTER_USER = 'cooperativa',
+MASTER_PASSWORD = 'cooperativa',
+MASTER_LOG_FILE = 'DESKTOP-I6IGDOB-bin.000094',
+MASTER_LOG_POS = 20109;

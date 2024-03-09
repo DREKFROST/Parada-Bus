@@ -8,7 +8,8 @@ mydb = mysql.connector.connect(
     password="Llumigusin98*",
     database="cooperativa"
 )
-
+#id del dispositivo para guardar en la base de datos
+dispositivo = 1
 # Crea un cursor para ejecutar consultas SQL
 mycursor = mydb.cursor()
 
@@ -33,8 +34,8 @@ while True:
         print("Dato existente")
     else:
         print("Dato guardado")
-        sql = "INSERT INTO ubicacion (altitud, longitud) VALUES (%s, %s)"
-        val = (altitud, longitud)
+        sql = "INSERT INTO ubicacion (ID_DISPOSITIVO, LATITUD, LONGITUD) VALUES (%s, %s, %s)"
+        val = (dispositivo, altitud, longitud)
         mycursor.execute(sql, val)
     
     mydb.commit()
