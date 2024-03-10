@@ -42,7 +42,6 @@ app.get("/nombre_paradas", function (req, res) {
 });
 
 app.get("/paradas", (req, res) => {
-  // Ejemplo de consulta a la base de datos
   const parada = req.query.nombre_parada;
   connection.query(
     `SELECT NOMBRE_COOPERATIVA, NOMBRE_PARADA, NUMERO_BUS 

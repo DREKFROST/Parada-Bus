@@ -7,6 +7,8 @@ import axios from "axios";
 const Paradas = ({ parada }) => {
   const [diferenciaMinutos, setDiferenciaMinutos] = useState(null);
   const [datos, setDatos] = useState([]);
+  const [tiempo, setTiempo] = useState([]);
+  
   var tiempo = "20:30:45";
   useEffect(() => {
     console.log(parada);

@@ -1,6 +1,8 @@
+import pytz
 import serial
 import mysql.connector
-from datetime import datetime
+from datetime import datetime, timedelta
+
 
 # Conecta a la base de datos MySQL
 mydb = mysql.connector.connect(
@@ -13,6 +15,12 @@ mydb = mysql.connector.connect(
 # id del dispositivo para guardar en la base de datos
 dispositivo = 1
 bus = 1
+
+# Definir la zona horaria de Londres
+london_tz = pytz.timezone('Europe/London')
+
+# Definir la zona horaria de Ecuador
+ecuador_tz = pytz.timezone('America/Guayaquil')
 
 # Crea un cursor para ejecutar consultas SQL
 mycursor = mydb.cursor()
@@ -32,7 +40,12 @@ while True:
         longitud, latitud, tiempo_str = dato.split(',')
         tiempo_str = tiempo_str.strip()  # Elimina espacios en blanco al inicio y final
         tiempo = datetime.strptime(tiempo_str, "%d/%m/%Y %H:%M:%S")
-        
+        # Asignar la zona horaria de Londres a la variable tiempo
+        tiempo = london_tz.localize(tiempo)
+        # Convertir la hora de Londres a la zona horaria de Ecuador
+        tiempo = tiempo.astimezone(ecuador_tz)
+        tiempo = tiempo + timedelta(hours = 1)
+        print("Dato Tratado:",latitud,",", longitud,  tiempo)
         # Busca la ubicación en la base de datos
         sql = "SELECT ID_UBICACION FROM ubicacion WHERE LATITUD = %s AND LONGITUD = %s"
         val = (latitud, longitud)
