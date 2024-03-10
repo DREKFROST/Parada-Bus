@@ -95,10 +95,11 @@ create table PARADA
 /*==============================================================*/
 create table REGISTRO
 (
+   ID_REGISTRO INTEGER PRIMARY KEY AUTO_INCREMENT,
    ID_BUS               int not null,
    ID_PARADA            int not null,
    FECHA_LLEGADA        datetime not null,
-   primary key (ID_BUS, ID_PARADA)
+   primary key (ID_REGISTRO)
 );
 
 alter table REGISTRO comment 'Registro de paradas';
@@ -108,10 +109,11 @@ alter table REGISTRO comment 'Registro de paradas';
 /*==============================================================*/
 create table REGISTRO_UBICACION
 (
+   ID_REGISTRO_UBICACION int not null auto_increment,
    ID_BUS               int not null,
    ID_DISPOSITIVO       int not null,
    FECHA_UBICACION      datetime not null,
-   primary key (ID_BUS, ID_DISPOSITIVO)
+   primary key (ID_REGISTRO_UBICACION)
 );
 
 /*==============================================================*/
@@ -121,8 +123,8 @@ create table UBICACION
 (
    ID_UBICACION         int not null AUTO_INCREMENT,
    ID_DISPOSITIVO       int not null,
-   LATITUD              varchar(9),
-   LONGITUD             varchar(9),
+   LATITUD              varchar(30),
+   LONGITUD             varchar(30),
    primary key (ID_UBICACION)
 );
 
