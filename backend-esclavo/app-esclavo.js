@@ -44,15 +44,29 @@ app.get("/nombre_paradas", function (req, res) {
 });
 
 app.get("/paradas", (req, res) => {
-  // Ejemplo de consulta a la base de datos
   const parada = req.query.nombre_parada;
   connection.query(
-    `SELECT NOMBRE_COOPERATIVA, NOMBRE_PARADA, NUMERO_BUS 
+    `SELECT NOMBRE_COOPERATIVA, NOMBRE_PARADA, NUMERO_BUS, LATITUD_PARADA, LONGITUD_PARADA
     FROM cooperativa 
     NATURAL JOIN chofer 
     NATURAL JOIN bus 
     NATURAL JOIN parada 
     WHERE NOMBRE_PARADA = '${parada}';`,
+    function (err, result, fields) {
+      if (err) {
+        console.error("Error al obtener datos de MySQL: " + err.stack);
+        res.status(500).send("Error al obtener datos de MySQL");
+        return;
+      }
+      res.json(result);
+      console.log(result);
+    }
+  );
+});
+
+app.get("/ubicacion", function (req, res) {
+  connection.query(
+    "SELECT LATITUD, LONGITUD FROM ubicacion ORDER BY id_ubicacion DESC LIMIT 1;",
     function (err, result, fields) {
       if (err) {
         console.error("Error al obtener datos de MySQL: " + err.stack);
@@ -86,5 +100,5 @@ app.get("/registro_ubicacion", (req, res) => {
 
 // Iniciar el servidor
 app.listen(port, () => {
-  console.log(`Servidor backend corriendo en http://${host}:${port}`);
+  console.log(`Servidor backend corriendo en http://localhost:${port}`);
 });
