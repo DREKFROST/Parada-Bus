@@ -21,8 +21,8 @@ function calcularDistancia(
   //Calcular el modulo del vector Resultante
   const a =
     Math.sin(diferencia_latitud / 2) * Math.sin(diferencia_latitud / 2) +
-    Math.cos(toRadians(latitud_parada)) *
-      Math.cos(toRadians(latitud_bus)) *
+    Math.cos(latitud_parada) *
+      Math.cos(latitud_bus) *
       Math.sin(diferencia_longitud / 2) *
       Math.sin(diferencia_longitud / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
@@ -52,7 +52,7 @@ function Tiempo_llegada(
 const Paradas = ({ parada }) => {
   const [datos, setDatos] = useState([]);
   const [ubicacion, setUbicacion] = useState([]);
-  const [distancia, setDistancia] = useState([]);
+  const [distancia, setDistancia] = useState(0);
   const [tiempo, setTiempo] = useState([]);
 
   useEffect(() => {
@@ -80,24 +80,26 @@ const Paradas = ({ parada }) => {
   }, [parada]);
 
   useEffect(() => {
-    if (datos && ubicacion) {
+    if (datos && ubicacion && datos.length > 0 && ubicacion.length > 0) {
+        const distancia = calcularDistancia(
+          parseFloat(datos[0].LATITUD_PARADA),
+          parseFloat(datos[0].LONGITUD_PARADA),
+          parseFloat(ubicacion[0].LATITUD),
+          parseFloat(ubicacion[0].LONGITUD)
+        );
+        setDistancia(distancia.toFixed(2));
 
+        const tiempo = Tiempo_llegada(
+          parseFloat(datos[0].LATITUD_PARADA),
+          parseFloat(datos[0].LONGITUD_PARADA),
+          parseFloat(ubicacion[0].LATITUD),
+          parseFloat(ubicacion[0].LONGITUD)
+        );
+        setTiempo(tiempo.toFixed(2));
       
-      const distancia = calcularDistancia(
-        parseFloat(datos.LATITUD_PARADA),
-        parseFloat(datos.LONGITUD_PARADA),
-        parseFloat(ubicacion.LATITUD),
-        parseFloat(ubicacion.LONGITUD)
-      );
-      setDistancia(distancia);
-
-      const tiempo = Tiempo_llegada(
-        parseFloat(datos.LATITUD_PARADA),
-        parseFloat(datos.LONGITUD_PARADA),
-        parseFloat(ubicacion.LATITUD),
-        parseFloat(ubicacion.LONGITUD)
-      );
-      setTiempo(tiempo);
+    } else {
+      setDistancia("Ya se Paso");
+      setTiempo(0);
     }
   }, [datos, ubicacion]);
 
@@ -135,7 +137,7 @@ const Paradas = ({ parada }) => {
           <tr>
             <th>Bus</th>
             <th>Cooperativa</th>
-            <th>Distancia</th>
+            <th>Distancia Km</th>
             <th>Aprox.{"(min)"}</th>
           </tr>
         </thead>
@@ -144,8 +146,8 @@ const Paradas = ({ parada }) => {
             <tr key={index}>
               <td>{data.NUMERO_BUS}</td>
               <td>{data.NOMBRE_COOPERATIVA}</td>
+              <td>{String(distancia)}</td>
               <td>{String(tiempo)}</td>
-              <td>{String(distancia.toFixed(2))}</td>
             </tr>
           ))}
         </tbody>
