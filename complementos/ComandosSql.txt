@@ -9,25 +9,22 @@ COMMIT;
 INSERT INTO Cooperativa (nombre_cooperativa, telefono_cooperativa, direccion_cooperativa,usuario,password)
 VALUES ('Amaguaña', '5551234567', 'Av. Principal #123','Daniel','123');
 
-INSERT INTO `cooperativa`.`chofer` (`ID_CHOFER`, `ID_COOPERATIVA`, `NOMBRE_CHOFER`, `APELLIDO_CHOFER`, `CEDULA_CHOFER`, `TELEFONO_CHOFER`, `CORREO_CHOFER`, `ESTADO_CHOFER`) VALUES ('1', '1', 'Daniel', 'Llumigusin', '1726623083', '0999201044', 'daniel@info.com', 'Activo');
-
-
-INSERT INTO Bus (id_bus, id_chofer, color_bus, placa_bus, numero_bus, capacidad, ruta_bus, estado_bus)
-VALUES (1, 1, 'Rojo', 'PDL5956', 39, 45, 'Marin-Sangoqui', 'Activo');
-
 INSERT INTO Parada (id_parada, nombre_parada, estado_parada, serie_pantalla)
 VALUES (1, 'Triangulo', 'Activo', '001');
 
 INSERT INTO Parada (id_parada, nombre_parada, estado_parada, serie_pantalla)
-VALUES (1, 'San Luis', 'Activo', '002');
+VALUES (2, 'San Luis', 'Activo', '002');
 
 INSERT INTO Parada (id_parada, nombre_parada, estado_parada, serie_pantalla)
-VALUES (1, 'ESPE', 'Activo', '003');
+VALUES (3, 'ESPE', 'Activo', '003');
 
 INSERT INTO Dispositivo (id_dispositivo, marca_dispositivo, fecha_adquisicion, estado_dispositivo)
-VALUES (1, 'Arduino', '2024-02-23', 'Activo');
+VALUES (3, 'Arduino', '2024-02-23', 'Activo');
 
+INSERT INTO `cooperativa`.`chofer` (`ID_CHOFER`, `ID_COOPERATIVA`, `NOMBRE_CHOFER`, `APELLIDO_CHOFER`, `CEDULA_CHOFER`, `TELEFONO_CHOFER`, `CORREO_CHOFER`, `ESTADO_CHOFER`) VALUES ('1', '1', 'Daniel', 'Llumigusin', '1726623083', '0999201044', 'daniel@info.com', 'Activo');
 
+INSERT INTO Bus (id_bus, id_chofer, color_bus, placa_bus, numero_bus, capacidad, ruta_bus, estado_bus)
+VALUES (1, 1, 'Rojo', 'PDL5956', 39, 45, 'Marin-Sangoqui', 'Activo');
 
 ESPE =
 	(DESCRIPTION = 

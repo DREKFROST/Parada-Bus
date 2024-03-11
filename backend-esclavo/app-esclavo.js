@@ -11,7 +11,9 @@ const dbConfig = {
   user: "cooperativa",
   password: "cooperativa",
   database: "cooperativa",
+  port:3306
 };
+host = "DESKTOP-I6IGDOB"
 
 // Conexión a MySQL
 const connection = mysql.createConnection(dbConfig);

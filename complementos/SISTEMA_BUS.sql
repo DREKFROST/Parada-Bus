@@ -87,6 +87,8 @@ create table PARADA
    NOMBRE_PARADA        varchar(25) not null,
    ESTADO_PARADA        varchar(25) not null,
    SERIE_PANTALLA       varchar(25) not null,
+   LATITUD_PARADA              varchar(30),
+   LONGITUD_PARADA             varchar(30),
    primary key (ID_PARADA)
 );
 
@@ -95,7 +97,7 @@ create table PARADA
 /*==============================================================*/
 create table REGISTRO
 (
-   ID_REGISTRO INTEGER PRIMARY KEY AUTO_INCREMENT,
+   ID_REGISTRO INTEGER AUTO_INCREMENT,
    ID_BUS               int not null,
    ID_PARADA            int not null,
    FECHA_LLEGADA        datetime not null,
@@ -111,7 +113,7 @@ create table REGISTRO_UBICACION
 (
    ID_REGISTRO_UBICACION int not null auto_increment,
    ID_BUS               int not null,
-   ID_DISPOSITIVO       int not null,
+   ID_UBICACION         int not null,
    FECHA_UBICACION      datetime not null,
    primary key (ID_REGISTRO_UBICACION)
 );
@@ -140,8 +142,8 @@ alter table REGISTRO add constraint FK_REGISTRO foreign key (ID_PARADA)
 alter table REGISTRO add constraint FK_REGISTRO2 foreign key (ID_BUS)
       references BUS (ID_BUS) on delete restrict on update restrict;
 
-alter table REGISTRO_UBICACION add constraint FK_REGISTRO_UBICACION foreign key (ID_DISPOSITIVO)
-      references DISPOSITIVO (ID_DISPOSITIVO) on delete restrict on update restrict;
+alter table REGISTRO_UBICACION add constraint FK_REGISTRO_UBICACION foreign key (ID_UBICACION)
+      references UBICACION (ID_UBICACION) on delete restrict on update restrict;
 
 alter table REGISTRO_UBICACION add constraint FK_REGISTRO_UBICACION2 foreign key (ID_BUS)
       references BUS (ID_BUS) on delete restrict on update restrict;

@@ -1,44 +1,106 @@
 import React, { useState, useEffect } from "react";
-import moment from "moment";
 import Clock from "react-live-clock";
 import "../styles/paradas.css";
 import imagen_back from "../img/btn-back.png";
 import axios from "axios";
+
+function toRadians(degrees) {
+  return degrees * (Math.PI / 180);
+}
+
+function calcularDistancia(
+  longitud_parada,
+  latitud_parada,
+  longitud_bus,
+  latitud_bus
+) {
+  const R = 6371; //Radio de la tierra en KM
+  //Calculo de distancia entre dos vectores
+  const diferencia_longitud = toRadians(longitud_parada - longitud_bus);
+  const diferencia_latitud = toRadians(latitud_parada - latitud_bus);
+  //Calcular el modulo del vector Resultante
+  const a =
+    Math.sin(diferencia_latitud / 2) * Math.sin(diferencia_latitud / 2) +
+    Math.cos(toRadians(latitud_parada)) *
+      Math.cos(toRadians(latitud_bus)) *
+      Math.sin(diferencia_longitud / 2) *
+      Math.sin(diferencia_longitud / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distancia = R * c; // Distancia en km
+  return distancia;
+}
+
+function Tiempo_llegada(
+  longitud_parada,
+  latitud_parada,
+  longitud_bus,
+  latitud_bus
+) {
+  const velocidad_promedio_kmh = 30;
+
+  const distancia = calcularDistancia(
+    latitud_parada,
+    longitud_parada,
+    latitud_bus,
+    longitud_bus
+  );
+  const tiempoHoras = distancia / velocidad_promedio_kmh;
+
+  return tiempoHoras;
+}
+
 const Paradas = ({ parada }) => {
-  const [diferenciaMinutos, setDiferenciaMinutos] = useState(null);
   const [datos, setDatos] = useState([]);
+  const [ubicacion, setUbicacion] = useState([]);
+  const [distancia, setDistancia] = useState([]);
   const [tiempo, setTiempo] = useState([]);
-  
-  var tiempo = "20:30:45";
+
   useEffect(() => {
-    console.log(parada);
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/paradas/", {
-          params: {
-            nombre_parada: parada,
-          },
-        });
-        setDatos(response.data);
-        
+        const responseParada = await axios.get(
+          "http://localhost:5000/paradas/",
+          {
+            params: {
+              nombre_parada: parada,
+            },
+          }
+        );
+        setDatos(responseParada.data);
+        console.log(responseParada.data);
+        const responseUbicacion = await axios.get(
+          "http://localhost:5000/ubicacion/"
+        );
+        setUbicacion(responseUbicacion.data);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
-  }, []);
+  }, [parada]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const horaActual = moment().tz("America/Guayaquil");
-      const horaLlegada = moment.tz(tiempo, "HH:mm:ss", "America/Guayaquil");
-      const diffMinutos = horaLlegada.diff(horaActual, "minutes");
-      setDiferenciaMinutos(diffMinutos);
-    }, 1000);
+    if (datos && ubicacion) {
 
-    return () => clearInterval(interval);
-  }, [tiempo]);
-  console.log(datos);
+      
+      const distancia = calcularDistancia(
+        parseFloat(datos.LATITUD_PARADA),
+        parseFloat(datos.LONGITUD_PARADA),
+        parseFloat(ubicacion.LATITUD),
+        parseFloat(ubicacion.LONGITUD)
+      );
+      setDistancia(distancia);
+
+      const tiempo = Tiempo_llegada(
+        parseFloat(datos.LATITUD_PARADA),
+        parseFloat(datos.LONGITUD_PARADA),
+        parseFloat(ubicacion.LATITUD),
+        parseFloat(ubicacion.LONGITUD)
+      );
+      setTiempo(tiempo);
+    }
+  }, [datos, ubicacion]);
+
   return (
     <div className="content-paradas">
       <div className="btn-parada">
@@ -73,19 +135,17 @@ const Paradas = ({ parada }) => {
           <tr>
             <th>Bus</th>
             <th>Cooperativa</th>
-            <th>Hora llegada</th>
+            <th>Distancia</th>
             <th>Aprox.{"(min)"}</th>
           </tr>
         </thead>
         <tbody>
           {datos.map((data, index) => (
-            <tr>
+            <tr key={index}>
               <td>{data.NUMERO_BUS}</td>
               <td>{data.NOMBRE_COOPERATIVA}</td>
-              <td>{tiempo}</td>
-              <td>
-                {diferenciaMinutos > 0 ? diferenciaMinutos : "Ya se paso"}
-              </td>
+              <td>{String(tiempo)}</td>
+              <td>{String(distancia.toFixed(2))}</td>
             </tr>
           ))}
         </tbody>

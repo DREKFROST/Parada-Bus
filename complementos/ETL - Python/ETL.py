@@ -26,7 +26,7 @@ ecuador_tz = pytz.timezone('America/Guayaquil')
 mycursor = mydb.cursor()
 
 # Conecta con el puerto serie
-ser = serial.Serial('COM8', 115200)  # Cambia 'COM8' por el puerto serie correcto
+ser = serial.Serial('COM3', 115200)  # Cambia 'COM8' por el puerto serie correcto
 
 while True:
     # Lee una línea de datos desde el puerto serie
@@ -66,8 +66,8 @@ while True:
             id_ubicacion = mycursor.lastrowid
 
             # Inserta el registro de ubicación en la tabla registro_ubicacion
-            sql = "INSERT INTO registro_ubicacion (ID_BUS, ID_DISPOSITIVO, FECHA_UBICACION) VALUES (%s, %s, %s)"
-            val = (bus, dispositivo, tiempo)
+            sql = "INSERT INTO registro_ubicacion (ID_BUS, ID_UBICACION, FECHA_UBICACION) VALUES (%s, %s, %s)"
+            val = (bus, id_ubicacion, tiempo)
             mycursor.execute(sql, val)
             mydb.commit()
             print("Registro de ubicación guardado")
